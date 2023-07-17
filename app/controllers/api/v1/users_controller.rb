@@ -11,6 +11,17 @@ module Api
         end
       end
 
+      def login
+        expired_time = Time.current + 6.hours
+        user = User.find_by(email: params[:user][:email])&.authenticate(params[:user][:password])
+        if user.present?
+          user.update(jti: JWT.encode({ expired: expired_time, email: params[:user][:email] }, Settings.jwt_hmac_secret, 'HS256'))
+          render json: { success: true, code: 200, token: user.jti, expired: expired_time }
+        else
+          render json: { success: false, code: 401 }
+        end
+      end
+
       private
 
       def user_params

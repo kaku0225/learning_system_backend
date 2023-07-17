@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :users, only: [] do
         collection do
           post 'sign_up'
+          post 'login'
         end
       end
     end
