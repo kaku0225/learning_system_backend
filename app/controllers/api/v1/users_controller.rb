@@ -22,6 +22,16 @@ module Api
         end
       end
 
+      def reset_password
+        user = User.find_by(email: params[:email])
+        if user.present?
+          ContactMailer.reset_password(user).deliver_now
+          render json: { success: true, code: 200 }
+        else
+          render json: { success: false, code: 401 }
+        end
+      end
+
       private
 
       def user_params

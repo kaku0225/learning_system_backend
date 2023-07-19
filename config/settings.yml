@@ -1,1 +1,8 @@
 jwt_hmac_secret: 'my$ecretK3y'
+
+system_email:
+  domain: 'gmail.com'
+  user_name: 'learning.system.mailbot@gmail.com'
+  password: 'wqnhpfwgsjctjvbb'
+
+reset_password_page: 'http://localhost:5173/reset_password'
