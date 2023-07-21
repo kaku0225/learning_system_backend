@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         collection do
           post 'sign_up'
           post 'login'
+          post 'send_reset_password_email'
           post 'reset_password'
         end
       end
