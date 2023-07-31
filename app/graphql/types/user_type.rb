@@ -8,5 +8,7 @@ module Types
     field :reset_jti, String, null: true
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+
+    field :todo_lists, [Types::TodoListType], null: true
   end
 end
