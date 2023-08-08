@@ -10,7 +10,7 @@ module Mutations
       field :message, String
 
       def resolve(email:, password:)
-        expired_time = Time.current + 6.hours
+        expired_time = Time.current + 6.months
         user = ::User.find_by(email: email)
         if user&.authenticate(password)
           user.update(jti: JWT.encode({ expired: expired_time, email: email }, Settings.jwt_hmac_secret, 'HS256'))
