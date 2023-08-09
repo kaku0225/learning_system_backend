@@ -20,11 +20,11 @@ module Mutations
       field :message, String
 
       def resolve(**args)
-        @user = ::User.new(args)
+        @user = ::User.new(args.merge(jti: JWT.encode({ email: args[:email] }, Settings.jwt_hmac_secret, 'HS256')))
         if @user.save
           { success: true, user: @user }
         else
-          { success: false, message: @user.errors.full_messages }
+          { success: false, message: @user.errors.full_messages.join('、 ') }
         end
       end
     end

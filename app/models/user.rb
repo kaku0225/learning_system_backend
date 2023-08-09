@@ -16,15 +16,7 @@ class User < ApplicationRecord
   has_many :todo_lists
   has_many :assigns, class_name: 'TodoList', foreign_key: :assign_id
 
-  validates :email, :password, :name, :cellphone, :school, presence: true
-  validates :email, format: { with: /\A(.+)@(.+)\z/, message: 'Email invalid' }, uniqueness: { case_sensitive: false }, length: { minimum: 4, maximum: 254 }   
-  validates :password, format: { with: PASSWORD_FORMAT, message: 'Password invalid' }
-
-  validate :passwords_match
-
-  private
-
-  def passwords_match
-    errors.add(:password_confirmation, 'must match password') unless password.eql?(password_confirmation)
-  end
+  validates :email, :name, :cellphone, :school, presence: true
+  validates :email, format: { with: /\A(.+)@(.+)\z/, message: 'Email invalid' }, uniqueness: { case_sensitive: false }, length: { minimum: 4, maximum: 254 }
+  validates :password, format: { with: PASSWORD_FORMAT, message: I18n.t('errors.messages.password_invalid') }
 end
