@@ -4,18 +4,27 @@ module Mutations
       argument :name, String, required: true
       argument :email, String, required: true
       argument :password, String, required: true
+      argument :password_confirmation, String, required: true
+      argument :birthday, String, required: true
+      argument :cellphone, String, required: true
+      argument :phone, String, required: true
+      argument :school, String, required: true
+      argument :main_grade, String, required: true
+      argument :sub_grade, String, required: true
+      argument :county, String, required: true
+      argument :address, String, required: true
+      argument :branch_school, String, required: true
 
       field :user, Types::UserType
       field :success, Boolean, null: false
       field :message, String
 
-      def resolve(name:, email:, password:)
-        if ::User.find_by(email: email).present?
-          { success: false, message: 'Register failed' }
+      def resolve(**args)
+        @user = ::User.new(args)
+        if @user.save
+          { success: true, user: @user }
         else
-          user = ::User.new(name: name, email: email, password: password, jti: JWT.encode({ email: email }, Settings.jwt_hmac_secret, 'HS256'))
-          user.save!
-          { success: true, user: user }
+          { success: false, message: @user.errors.full_messages }
         end
       end
     end
