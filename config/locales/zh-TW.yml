@@ -18,6 +18,7 @@ zh-TW:
   errors: &errors
     format: ! '%{message}'
     messages:
+      email_invalid: 'Email格式錯誤'
       password_invalid: '密碼格式錯誤'
       accepted: 必須是可被接受的
       blank: 不能空白

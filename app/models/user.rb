@@ -17,6 +17,6 @@ class User < ApplicationRecord
   has_many :assigns, class_name: 'TodoList', foreign_key: :assign_id
 
   validates :email, :name, :cellphone, :school, presence: true
-  validates :email, format: { with: /\A(.+)@(.+)\z/, message: 'Email invalid' }, uniqueness: { case_sensitive: false }, length: { minimum: 4, maximum: 254 }
+  validates :email, format: { with: /\A(.+)@(.+)\z/, message: I18n.t('errors.messages.email_invalid') }, uniqueness: { case_sensitive: false }, length: { minimum: 4, maximum: 254 }
   validates :password, format: { with: PASSWORD_FORMAT, message: I18n.t('errors.messages.password_invalid') }
 end
