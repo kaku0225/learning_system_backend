@@ -10,36 +10,38 @@ module Mutations
       field :message, String
 
       def resolve(token:, password:, password_confirmation:)
-        check(token, password, password_confirmation)
-
-        if @errors.present?
-          { success: false, message: @errors }
+        errors = check_token_and_find_user(token)
+        if @user.present?
+          reset_password(password, password_confirmation)
         else
-          begin
-            decoded_token = JWT.decode token, Settings.jwt_hmac_secret, true, { algorithm: 'HS256' }
-            user = ::User.find_by(email: decoded_token[0]['email'])
-            user.update(password: password, reset_jti: nil)
-            { success: true, user: user }
-          rescue JWT::ExpiredSignature
-            { success: false, message: 'Expired, please resend the password reset email' }
-          end
+          { success: false, message: errors }
         end
       end
 
       private
 
-      def check(token, password, password_confirmation)
-        @errors = []
-        check_password_matches(password, password_confirmation)
-        check_token_exists(token)
+      def check_token_and_find_user(token)
+        JWT.decode token, Settings.jwt_hmac_secret, true, { algorithm: 'HS256' }
+        @user = ::User.find_by(reset_jti: token)
+        I18n.t('messages.invalid_token') if @user.blank?
+      rescue JWT::ExpiredSignature
+        I18n.t('messages.please_resend_the_password_reset_email')
+      rescue JWT::DecodeError
+        I18n.t('messages.invalid_token')
       end
 
-      def check_password_matches(password, password_confirmation)
-        @errors << 'Inconsistent password input' unless password.eql?(password_confirmation)
-      end
+      def reset_password(password, password_confirmation)
+        @user.assign_attributes(
+          password: password,
+          password_confirmation: password_confirmation,
+          reset_jti: nil
+        )
 
-      def check_token_exists(token)
-        @errors << 'Invalid token' if ::User.where(reset_jti: token).blank?
+        if @user.save
+          { success: true, user: @user }
+        else
+          { success: false, message: @user.errors.full_messages.join('、') }
+        end
       end
     end
   end

@@ -1,4 +1,7 @@
 zh-TW:
+  messages:
+    please_resend_the_password_reset_email: '修改密碼效期已過，請重新申請'
+    invalid_token: 'Token不存在，請重新申請'
   activerecord:
     attributes:
       user:

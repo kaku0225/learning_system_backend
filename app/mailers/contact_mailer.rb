@@ -1,7 +1,7 @@
 class ContactMailer < ApplicationMailer
   def reset_password(user)
     @user = user
-    @user.update(reset_jti: build_reset_token(@user.email))
+    @user.update_columns(reset_jti: build_reset_token(@user.email))
     mail to: @user.email, subject: '密碼重置'
   end
 
