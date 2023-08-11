@@ -9,7 +9,7 @@ module Mutations
         expired_time = Time.current
         decoded_token = JWT.decode token, Settings.jwt_hmac_secret, true, { algorithm: 'HS256' }
         user = ::User.find_by(email: decoded_token[0]['email'])
-        user.update(jti: JWT.encode({ expired: expired_time, email: user.email }, Settings.jwt_hmac_secret, 'HS256'))
+        user.update_columns(jti: JWT.encode({ expired: expired_time, email: user.email }, Settings.jwt_hmac_secret, 'HS256'))
         { expired_time: expired_time }
       end
     end
