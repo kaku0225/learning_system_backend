@@ -1,11 +1,11 @@
 module Mutations
-  module User
+  module Student
     class ResetPasswordMutation < Mutations::BaseMutation
       argument :token, String, required: true
       argument :password, String, required: true
       argument :password_confirmation, String, required: true
 
-      field :user, Types::UserType
+      field :user, Types::StudentType
       field :success, Boolean, null: false
       field :message, String
 

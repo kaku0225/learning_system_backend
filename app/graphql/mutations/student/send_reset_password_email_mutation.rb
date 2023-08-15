@@ -1,9 +1,9 @@
 module Mutations
-  module User
+  module Student
     class SendResetPasswordEmailMutation < Mutations::BaseMutation
       argument :email, String, required: true
 
-      field :user, Types::UserType
+      field :user, Types::StudentType
       field :success, Boolean, null: false
       field :message, String
 

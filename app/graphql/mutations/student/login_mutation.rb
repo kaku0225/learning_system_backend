@@ -1,10 +1,10 @@
 module Mutations
-  module User
+  module Student
     class LoginMutation < Mutations::BaseMutation
       argument :email, String, required: true
       argument :password, String, required: true
 
-      field :user, Types::UserType
+      field :user, Types::StudentType
       field :success, Boolean, null: false
       field :expired_time, GraphQL::Types::ISO8601DateTime
       field :message, String

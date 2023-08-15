@@ -20,7 +20,7 @@ module Mutations
       field :message, String
 
       def resolve(name:, email:, password:, password_confirmation:, **profile_attributes)
-        Student.transaction do
+        ::Student.transaction do
           student = ::Student.new(name: name, email: email, password: password, password_confirmation: password_confirmation, jti: JWT.encode({ email: email }, Settings.jwt_hmac_secret, 'HS256'))
           student.build_profile(profile_attributes)
           student.save!

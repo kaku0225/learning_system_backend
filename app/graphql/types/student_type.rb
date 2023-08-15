@@ -8,7 +8,7 @@ module Types
     field :reset_jti, String, null: true
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
-    field :enabled, Boolean, default: false
+    field :enabled, Boolean
     field :profile, Types::StudentProfileType, null: false
     field :todo_lists, [Types::TodoListType], null: true
   end
