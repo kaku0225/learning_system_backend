@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: nil
+  birthday: MyString
+  cellphone: MyString
+  phone: MyString
+  school: MyString
+  main_grade: MyString
+  sub_grade: MyString
+  county: MyString
+  address: MyString
+  branch_school: MyString
+
+two:
+  student_id: nil
+  birthday: MyString
+  cellphone: MyString
+  phone: MyString
+  school: MyString
+  main_grade: MyString
+  sub_grade: MyString
+  county: MyString
+  address: MyString
+  branch_school: MyString
