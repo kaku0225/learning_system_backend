@@ -1,4 +1,4 @@
 class StudentProfile < ApplicationRecord
-  belongs_to :student, inverse_of: :companion
+  belongs_to :student, inverse_of: :profile
   validates :student, presence: true
 end

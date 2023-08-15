@@ -1,5 +1,5 @@
 module Mutations
-  module User
+  module Student
     class SignUpMutation < Mutations::BaseMutation
       argument :name, String, required: true
       argument :email, String, required: true
@@ -15,16 +15,18 @@ module Mutations
       argument :address, String, required: true
       argument :branch_school, String, required: true
 
-      field :user, Types::UserType
+      field :student, Types::StudentType
       field :success, Boolean, null: false
       field :message, String
 
-      def resolve(**args)
-        @user = ::User.new(args.merge(jti: JWT.encode({ email: args[:email] }, Settings.jwt_hmac_secret, 'HS256')))
-        if @user.save
-          { success: true, user: @user }
-        else
-          { success: false, message: @user.errors.full_messages.join('、 ') }
+      def resolve(name:, email:, password:, password_confirmation:, **profile_attributes)
+        Student.transaction do
+          student = ::Student.new(name: name, email: email, password: password, password_confirmation: password_confirmation, jti: JWT.encode({ email: email }, Settings.jwt_hmac_secret, 'HS256'))
+          student.build_profile(profile_attributes)
+          student.save!
+          { success: true, student: student }
+        rescue ActiveRecord::RecordInvalid => e
+          { success: false, message: e.record.errors.full_messages.join('、 ') }
         end
       end
     end
