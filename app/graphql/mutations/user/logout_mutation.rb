@@ -1,5 +1,5 @@
 module Mutations
-  module Student
+  module User
     class LogoutMutation < Mutations::BaseMutation
       argument :token, String, required: true
 
