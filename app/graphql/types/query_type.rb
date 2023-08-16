@@ -4,16 +4,18 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    field :check_login, Boolean, null: false do
+    field :check_login, Types::CheckLoginType, null: false do
       argument :token, String, required: true
+      argument :role, String, required: true
     end
 
-    def check_login(token:)
-      if ::User.where(jti: token).present?
+    def check_login(token:, role:)
+      object = role.constantize.find_by(jti: token)
+      if object.present?
         decoded_token = JWT.decode token, Settings.jwt_hmac_secret, true, { algorithm: 'HS256' }
-        decoded_token[0]['expired'] > Time.current
+        { success: decoded_token[0]['expired'] > Time.current, role: object.type }
       else
-        false
+        { success: false }
       end
     end
 
@@ -33,8 +35,11 @@ module Types
     def todo_list_by_status(token:)
       decoded_token = JWT.decode token, Settings.jwt_hmac_secret, true, { algorithm: 'HS256' }
       student = ::Student.find_by(email: decoded_token[0]['email'])
-
-      { pending_todo_lists: student.todo_lists.where(status: 'pending'), done_todo_lists: student.todo_lists.where(status: 'done') }
+      if student.present?
+        { pending_todo_lists: student.todo_lists.where(status: 'pending'), done_todo_lists: student.todo_lists.where(status: 'done') }
+      else
+        { pending_todo_lists: [],  done_todo_lists: []}
+      end
     end
   end
 end
