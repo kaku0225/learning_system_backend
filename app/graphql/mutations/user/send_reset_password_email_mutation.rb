@@ -1,9 +1,9 @@
 module Mutations
-  module Student
+  module User
     class SendResetPasswordEmailMutation < Mutations::BaseMutation
       argument :email, String, required: true
 
-      field :user, Types::StudentType
+      field :user, Types::UserType
       field :success, Boolean, null: false
       field :message, String
 
@@ -14,7 +14,7 @@ module Mutations
           ContactMailer.reset_password(user).deliver_later
           { user: user, success: true }
         else
-          { success: false, message: 'Email Sending failed' }
+          { success: false, message: I18n.t('messages.email_sending_failed') }
         end
       end
     end
