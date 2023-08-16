@@ -1,5 +1,5 @@
 module Mutations
-  module Student
+  module User
     class ResetPasswordMutation < Mutations::BaseMutation
       argument :token, String, required: true
       argument :password, String, required: true
