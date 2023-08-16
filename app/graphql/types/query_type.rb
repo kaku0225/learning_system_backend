@@ -32,9 +32,9 @@ module Types
 
     def todo_list_by_status(token:)
       decoded_token = JWT.decode token, Settings.jwt_hmac_secret, true, { algorithm: 'HS256' }
-      user = ::User.find_by(email: decoded_token[0]['email'])
+      student = ::Student.find_by(email: decoded_token[0]['email'])
 
-      { pending_todo_lists: user.todo_lists.where(status: 'pending'), done_todo_lists: user.todo_lists.where(status: 'done') }
+      { pending_todo_lists: student.todo_lists.where(status: 'pending'), done_todo_lists: student.todo_lists.where(status: 'done') }
     end
   end
 end
