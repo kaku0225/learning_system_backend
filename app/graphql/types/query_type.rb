@@ -10,12 +10,15 @@ module Types
     end
 
     def check_login(token:, role:)
-      object = role.constantize.find_by(jti: token)
-      if object.present?
-        decoded_token = JWT.decode token, Settings.jwt_hmac_secret, true, { algorithm: 'HS256' }
-        { success: decoded_token[0]['expired'] > Time.current, role: object.type }
-      else
+      user = ::User.find_by(jti: token)
+      return { success: false } if user.blank?
+
+      if expired_token?(token)
         { success: false }
+      elsif user.type != role
+        { success: true, path: Settings.check_login.path.send(user.type) }
+      else
+        { success: true }
       end
     end
 
@@ -40,6 +43,14 @@ module Types
       else
         { pending_todo_lists: [],  done_todo_lists: []}
       end
+    end
+
+
+    private
+
+    def expired_token?(token)
+      decoded_token = JWT.decode token, Settings.jwt_hmac_secret, true, { algorithm: 'HS256' }
+      decoded_token[0]['expired'] < Time.current
     end
   end
 end

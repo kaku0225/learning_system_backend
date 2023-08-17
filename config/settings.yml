@@ -6,3 +6,8 @@ system_email:
   password: 'wqnhpfwgsjctjvbb'
 
 reset_password_page: 'http://localhost:5173/reset_password'
+
+check_login:
+  path:
+    Student: '/'
+    Admin: '/back_interface'
