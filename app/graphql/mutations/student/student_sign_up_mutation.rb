@@ -1,33 +1,40 @@
 module Mutations
   module Student
     class StudentSignUpMutation < Mutations::BaseMutation
-      argument :name, String, required: true
-      argument :email, String, required: true
-      argument :password, String, required: true
-      argument :password_confirmation, String, required: true
-      argument :birthday, String, required: true
-      argument :cellphone, String, required: true
-      argument :phone, String, required: true
-      argument :school, String, required: true
-      argument :main_grade, String, required: true
-      argument :sub_grade, String, required: true
-      argument :county, String, required: true
-      argument :address, String, required: true
-      argument :branch_school, String, required: true
+      argument :info, Types::Inputs::UserInputType, required: true
+      argument :profile, Types::Inputs::StudentProfileInputType, required: true
+      argument :branch_schools, [String], required: true
 
       field :student, Types::StudentType
       field :success, Boolean, null: false
       field :message, String
 
-      def resolve(name:, email:, password:, password_confirmation:, **profile_attributes)
+      def resolve(params)
         ::Student.transaction do
-          student = ::Student.new(name: name, email: email, password: password, password_confirmation: password_confirmation, jti: JWT.encode({ email: email }, Settings.jwt_hmac_secret, 'HS256'))
-          student.build_profile(profile_attributes)
+          student = build_student(params)
           student.save!
           { success: true, student: student }
         rescue ActiveRecord::RecordInvalid => e
           { success: false, message: e.record.errors.full_messages.join('、 ') }
         end
+      end
+
+      private
+
+      def build_student(params)
+        student = ::Student.new(params[:info].to_h)
+        student.jti = generate_jti(params[:info][:email])
+        student.build_profile(params[:profile].to_h)
+        student.branch_schools = find_branch_schools(params[:branch_schools])
+        student
+      end
+
+      def generate_jti(email)
+        JWT.encode({ email: email }, Settings.jwt_hmac_secret, 'HS256')
+      end
+
+      def find_branch_schools(names)
+        BranchSchool.where(name: names)
       end
     end
   end

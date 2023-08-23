@@ -8,6 +8,5 @@ module Types
     field :sub_grade, String, null: false
     field :county, String, null: false
     field :address, String, null: false
-    field :branch_school, String, null: false
   end
 end
