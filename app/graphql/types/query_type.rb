@@ -41,10 +41,15 @@ module Types
       if student.present?
         { pending_todo_lists: student.todo_lists.where(status: 'pending'), done_todo_lists: student.todo_lists.where(status: 'done') }
       else
-        { pending_todo_lists: [],  done_todo_lists: []}
+        { pending_todo_lists: [], done_todo_lists: [] }
       end
     end
 
+    field :class_advisers, [Types::ClassAdviserType], null: false
+
+    def class_advisers
+      ClassAdviser.includes(:profile)
+    end
 
     private
 
