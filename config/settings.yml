@@ -7,7 +7,11 @@ system_email:
 
 reset_password_page: 'http://localhost:5173/reset_password'
 
-check_login:
-  path:
-    Student: '/'
-    Admin: '/admin_interface'
+
+Admin:
+  routes: ['/admin_interface', '/admin_interface/account_management', '/admin_interface/branch_school_management']
+  root: '/admin_interface'
+
+Student:
+  routes: ['/', '/booking', '/booking_search', '/assignment_review', '/learning_record']
+  root: '/'

@@ -4,21 +4,19 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    field :check_login, Types::CheckLoginType, null: false do
+    field :check_authentication, Types::CheckLoginType, null: false do
       argument :token, String, required: true
-      argument :role, String, required: true
+      argument :path, String, required: true
     end
 
-    def check_login(token:, role:)
-      user = ::User.find_by(jti: token)
-      return { success: false } if user.blank?
+    def check_authentication(token:, path:)
+      user = User.find_by(jti: token)
 
-      if expired_token?(token)
-        { success: false }
-      elsif user.type != role
-        { success: true, path: Settings.check_login.path.send(user.type) }
+      if user.blank? || token.blank?
+        handle_blank_user_or_token(path)
       else
-        { success: true }
+        type = user.type
+        handle_authenticated_user(user, type, path)
       end
     end
 
@@ -56,6 +54,26 @@ module Types
     def expired_token?(token)
       decoded_token = JWT.decode token, Settings.jwt_hmac_secret, true, { algorithm: 'HS256' }
       decoded_token[0]['expired'] < Time.current
+    end
+
+    def handle_blank_user_or_token(path)
+      if path == '/login'
+        { success: true }
+      else
+        { success: false, path: '/login' }
+      end
+    end
+
+    def handle_authenticated_user(user, type, path)
+      if allowed_path?(type, path)
+        { success: true }
+      else
+        { success: false, path: format(Settings.send(type).root, id: user.id) }
+      end
+    end
+
+    def allowed_path?(type, path)
+      Settings.send(type).routes.include?(path)
     end
   end
 end
