@@ -46,7 +46,7 @@ module Types
     field :class_advisers, [Types::ClassAdviserType], null: false
 
     def class_advisers
-      ClassAdviser.includes(:profile)
+      ClassAdviser.includes(:profile, :branch_schools)
     end
 
     private

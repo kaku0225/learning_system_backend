@@ -11,6 +11,7 @@ module Types
 
     ## ClassAdviser
     field :class_adviser_sign_up, mutation: ::Mutations::ClassAdviser::ClassAdviserSignUpMutation
+    field :class_adviser_update, mutation: ::Mutations::ClassAdviser::ClassAdviserUpdateMutation
 
     ## Admin
     field :create_branch_school, mutation: ::Mutations::Admin::CreateBranchSchoolMutation

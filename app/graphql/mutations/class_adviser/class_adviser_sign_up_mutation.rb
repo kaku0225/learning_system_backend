@@ -16,7 +16,7 @@ module Mutations
         begin
           create_class_adviser(name, email, password, branch_schools, profile_attributes)
           ContactMailer.temp_password(email, password).deliver_later
-          { success: true, class_advisers: ::ClassAdviser.includes(:profile) }
+          { success: true, class_advisers: ::ClassAdviser.includes(:profile, :branch_schools) }
         rescue ActiveRecord::RecordInvalid => e
           { success: false, message: e.record.errors.full_messages.join('、 ') }
         end

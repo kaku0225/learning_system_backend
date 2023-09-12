@@ -10,5 +10,6 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
     field :enabled, Boolean
     field :profile, Types::ClassAdviserProfileType, null: false
+    field :branch_schools, [Types::BranchSchoolType]
   end
 end
