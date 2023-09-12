@@ -8,13 +8,14 @@ module Mutations
       field :success, Boolean, null: false
       field :expired_time, GraphQL::Types::ISO8601DateTime
       field :message, String
+      field :path, String
 
       def resolve(email:, password:)
         expired_time = Time.current + 6.months
         user = ::User.find_by(email: email)
         if user&.authenticate(password)
           user.update_columns(jti: JWT.encode({ expired: expired_time, email: email }, Settings.jwt_hmac_secret, 'HS256'))
-          { user: user, success: true, expired_time: expired_time }
+          { user: user, success: true, expired_time: expired_time, path: Settings.send(user.type).root }
         else
           { success: false, message: I18n.t('messages.invalid_email_or_password') }
         end
