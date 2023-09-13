@@ -15,3 +15,7 @@ Admin:
 Student:
   routes: ['/', '/booking', '/booking_search', '/assignment_review', '/learning_record']
   root: '/'
+
+ClassAdviser:
+  routes: ['/class_adviser_interface', '/class_adviser_interface/administration_staff_management']
+  root: '/class_adviser_interface'
