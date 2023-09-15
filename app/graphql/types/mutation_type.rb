@@ -8,6 +8,7 @@ module Types
 
     ## Student
     field :student_sign_up, mutation: ::Mutations::Student::StudentSignUpMutation
+    field :create_todo_list, mutation: ::Mutations::Student::CreateTodoListMutation
 
     ## ClassAdviser
     field :class_adviser_sign_up, mutation: ::Mutations::ClassAdviser::ClassAdviserSignUpMutation
@@ -15,7 +16,5 @@ module Types
 
     ## Admin
     field :create_branch_school, mutation: ::Mutations::Admin::CreateBranchSchoolMutation
-
-    field :create, mutation: ::Mutations::TodoList::CreateMutation
   end
 end
