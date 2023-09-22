@@ -49,6 +49,12 @@ module Types
       ClassAdviser.includes(:profile, :branch_schools)
     end
 
+    field :teachers, [Types::TeacherType], null: false
+
+    def teachers
+      Teacher.includes(:profile, :branch_schools, :subjects)
+    end
+
     private
 
     def expired_token?(token)
