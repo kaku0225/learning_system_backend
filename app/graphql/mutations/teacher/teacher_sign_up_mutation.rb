@@ -19,7 +19,7 @@ module Mutations
 
         begin
           create_teacher(name, email, password, subjects, branch_schools, profile_attributes)
-          # ContactMailer.temp_password(email, password).deliver_later
+          ContactMailer.temp_password(email, password).deliver_later
           { success: true, teachers: ::Teacher.includes(:profile, :subjects, :branch_schools) }
         rescue ActiveRecord::RecordInvalid => e
           { success: false, message: e.record.errors.full_messages.join('、 ') }
