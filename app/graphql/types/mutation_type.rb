@@ -16,6 +16,7 @@ module Types
 
     ## Teacher
     field :teacher_sign_up, mutation: ::Mutations::Teacher::TeacherSignUpMutation
+    field :teacher_update, mutation: ::Mutations::Teacher::TeacherUpdateMutation
 
     ## Admin
     field :create_branch_school, mutation: ::Mutations::Admin::CreateBranchSchoolMutation
