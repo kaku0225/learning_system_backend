@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_21_055049) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_23_082805) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "administration_staff_profiles", force: :cascade do |t|
+    t.integer "administration_staff_id"
+    t.string "gender"
+    t.string "cellphone"
+    t.string "school"
+    t.string "major"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "branch_school_relations", force: :cascade do |t|
     t.bigint "user_id", null: false

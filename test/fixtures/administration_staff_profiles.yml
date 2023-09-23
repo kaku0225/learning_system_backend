@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  administration_staff_id: 1
+  gender: MyString
+  cellphone: MyString
+  school: MyString
+  major: MyString
+
+two:
+  administration_staff_id: 1
+  gender: MyString
+  cellphone: MyString
+  school: MyString
+  major: MyString
