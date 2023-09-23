@@ -2,6 +2,7 @@ class User < ApplicationRecord
   include BCrypt
 
   attr_accessor :password_confirmation
+  attr_accessor :create_or_update_password
 
   PASSWORD_FORMAT = /\A
   (?=.{8,})          # Must contain 8 or more characters
@@ -18,5 +19,8 @@ class User < ApplicationRecord
 
   validates :email, :name, presence: true
   validates :email, format: { with: /\A(.+)@(.+)\z/, message: I18n.t('errors.messages.email_invalid') }, uniqueness: { case_sensitive: false }, length: { minimum: 4, maximum: 254 }
-  validates :password, format: { with: PASSWORD_FORMAT, message: I18n.t('errors.messages.password_invalid') }
+
+  with_options if: :create_or_update_password do
+    validates :password, format: { with: PASSWORD_FORMAT, message: I18n.t('errors.messages.password_invalid') }
+  end
 end

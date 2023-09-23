@@ -17,6 +17,8 @@ module Mutations
         { success: true, class_advisers: ::ClassAdviser.includes(:profile, :branch_schools) }
       rescue ActiveRecord::RecordNotFound => e
         { success: false, message: e.record.errors.full_messages.join('、 ') }
+      rescue ActiveRecord::RecordInvalid => e
+        { success: false, message: e.record.errors.full_messages.join('、 ') }
       end
 
       private
@@ -26,7 +28,7 @@ module Mutations
           class_adviser.assign_attributes(name: name, email: email)
           class_adviser.profile.assign_attributes(profile_attributes)
           class_adviser.branch_schools = BranchSchool.where(name: branch_schools)
-          class_adviser.save(validate: false)
+          class_adviser.save!
         end
       end
     end

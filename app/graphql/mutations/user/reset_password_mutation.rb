@@ -37,6 +37,8 @@ module Mutations
           reset_jti: nil
         )
 
+        @user.create_or_update_password = true
+
         if @user.save
           { success: true, user: @user }
         else

@@ -21,6 +21,8 @@ module Mutations
         { success: true, teachers: ::Teacher.includes(:profile, :branch_schools) }
       rescue ActiveRecord::RecordNotFound => e
         { success: false, message: e.record.errors.full_messages.join('、 ') }
+      rescue ActiveRecord::RecordInvalid => e
+        { success: false, message: e.record.errors.full_messages.join('、 ') }
       end
 
       private
@@ -31,7 +33,7 @@ module Mutations
           teacher.profile.assign_attributes(profile_attributes)
           teacher.subjects = Subject.where(name: subjects)
           teacher.branch_schools = BranchSchool.where(name: branch_schools)
-          teacher.save(validate: false)
+          teacher.save!
         end
       end
     end

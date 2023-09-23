@@ -12,6 +12,7 @@ module Mutations
       def resolve(params)
         ::Student.transaction do
           student = build_student(params)
+          student.create_or_update_password = true
           student.save!
           { success: true, student: student }
         rescue ActiveRecord::RecordInvalid => e
