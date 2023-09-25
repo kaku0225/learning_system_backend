@@ -55,6 +55,12 @@ module Types
       Teacher.includes(:profile, :branch_schools, :subjects)
     end
 
+    field :administration_staffs, [Types::AdministrationStaffType], null: false
+
+    def administration_staffs
+      AdministrationStaff.includes(:profile, :branch_schools)
+    end
+
     private
 
     def expired_token?(token)

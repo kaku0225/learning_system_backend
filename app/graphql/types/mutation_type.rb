@@ -14,6 +14,9 @@ module Types
     field :class_adviser_sign_up, mutation: ::Mutations::ClassAdviser::ClassAdviserSignUpMutation
     field :class_adviser_update, mutation: ::Mutations::ClassAdviser::ClassAdviserUpdateMutation
 
+    ## AdministrationStaff
+    field :administration_staff_sign_up, mutation: ::Mutations::AdministrationStaff::AdministrationStaffSignUpMutation
+
     ## Teacher
     field :teacher_sign_up, mutation: ::Mutations::Teacher::TeacherSignUpMutation
     field :teacher_update, mutation: ::Mutations::Teacher::TeacherUpdateMutation

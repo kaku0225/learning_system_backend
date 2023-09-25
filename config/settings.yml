@@ -17,5 +17,5 @@ Student:
   root: '/'
 
 ClassAdviser:
-  routes: ['/class_adviser_interface', '/class_adviser_interface/administration_staff_management']
+  routes: ['/class_adviser_interface', '/class_adviser_interface/administration_staff_management', '/class_adviser_interface/teacher_management', '/class_adviser_interface/teacher_schedule']
   root: '/class_adviser_interface'
