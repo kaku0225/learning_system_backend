@@ -22,8 +22,8 @@ module Types
     field :teacher_sign_up, mutation: ::Mutations::Teacher::TeacherSignUpMutation
     field :teacher_update, mutation: ::Mutations::Teacher::TeacherUpdateMutation
 
-    ## Admin
-    field :branch_school_create, mutation: ::Mutations::Admin::BranchSchoolCreateMutation
-    field :branch_school_update, mutation: ::Mutations::Admin::BranchSchoolUpdateMutation
+    ## BranchSchool
+    field :branch_school_create, mutation: ::Mutations::BranchSchool::BranchSchoolCreateMutation
+    field :branch_school_update, mutation: ::Mutations::BranchSchool::BranchSchoolUpdateMutation
   end
 end
