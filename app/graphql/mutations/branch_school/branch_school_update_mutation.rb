@@ -15,7 +15,7 @@ module Mutations
       def resolve(id:, **argument)
         branch_school = ::BranchSchool.find(id)
         update_branch_school(branch_school, argument)
-        { success: true, branch_schools: ::BranchSchool.includes(:users).where(users: { type: 'ClassAdviser' }) }
+        { success: true, branch_schools: ::BranchSchool.includes(:users) }
       rescue ActiveRecord::RecordNotFound => e
         { success: false, message: e.record.errors.full_messages.join('、 ') }
       rescue ActiveRecord::RecordInvalid => e

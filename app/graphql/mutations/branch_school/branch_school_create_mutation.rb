@@ -14,7 +14,7 @@ module Mutations
       def resolve(**argument)
         branch_school = ::BranchSchool.new(argument)
         branch_school.save!
-        { success: true, branch_schools: ::BranchSchool.includes(:users).where(users: { type: 'ClassAdviser' }) }
+        { success: true, branch_schools: ::BranchSchool.includes(:users) }
       rescue ActiveRecord::RecordInvalid => e
         { success: false, message: e.record.errors.full_messages.join('、 ') }
       end
