@@ -23,6 +23,7 @@ module Types
     field :teacher_update, mutation: ::Mutations::Teacher::TeacherUpdateMutation
 
     ## Admin
-    field :create_branch_school, mutation: ::Mutations::Admin::CreateBranchSchoolMutation
+    field :branch_school_create, mutation: ::Mutations::Admin::BranchSchoolCreateMutation
+    field :branch_school_update, mutation: ::Mutations::Admin::BranchSchoolUpdateMutation
   end
 end

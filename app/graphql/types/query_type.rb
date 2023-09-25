@@ -43,6 +43,12 @@ module Types
       end
     end
 
+    field :branch_schools, [Types::BranchSchoolType], null: false
+
+    def branch_schools
+      BranchSchool.includes(:users)
+    end
+
     field :class_advisers, [Types::ClassAdviserType], null: false
 
     def class_advisers
