@@ -16,6 +16,7 @@ module Types
 
     ## AdministrationStaff
     field :administration_staff_sign_up, mutation: ::Mutations::AdministrationStaff::AdministrationStaffSignUpMutation
+    field :administration_staff_update, mutation: ::Mutations::AdministrationStaff::AdministrationStaffUpdateMutation
 
     ## Teacher
     field :teacher_sign_up, mutation: ::Mutations::Teacher::TeacherSignUpMutation
