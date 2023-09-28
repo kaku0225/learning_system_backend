@@ -25,5 +25,9 @@ module Types
     ## BranchSchool
     field :branch_school_create, mutation: ::Mutations::BranchSchool::BranchSchoolCreateMutation
     field :branch_school_update, mutation: ::Mutations::BranchSchool::BranchSchoolUpdateMutation
+
+    ## Schedule
+    field :schedule_create_or_destroy, mutation: ::Mutations::Schedule::ScheduleCreateOrDestroyMutation
+    field :schedule_update, mutation: ::Mutations::Schedule::ScheduleUpdateMutation
   end
 end

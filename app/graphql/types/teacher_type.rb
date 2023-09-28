@@ -11,6 +11,7 @@ module Types
     field :enabled, Boolean
     field :profile, Types::TeacherProfileType, null: false
     field :subjects, [Types::SubjectType]
+    field :schedules, [Types::ScheduleType]
     field :branch_schools, [Types::BranchSchoolType]
   end
 end

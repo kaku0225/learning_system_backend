@@ -58,13 +58,19 @@ module Types
     field :teachers, [Types::TeacherType], null: false
 
     def teachers
-      Teacher.includes(:profile, :branch_schools, :subjects)
+      Teacher.includes(:profile, :branch_schools, :subjects, :schedules)
     end
 
     field :administration_staffs, [Types::AdministrationStaffType], null: false
 
     def administration_staffs
       AdministrationStaff.includes(:profile, :branch_schools)
+    end
+
+    field :schedules, [Types::ScheduleType], null: false
+
+    def schedules
+      Schedule.includes(:teacher)
     end
 
     private
