@@ -73,6 +73,17 @@ module Types
       Schedule.includes(:teacher)
     end
 
+    field :schedule_duplicate, Boolean, null: false do
+      argument :title, String, required: true
+      argument :start, GraphQL::Types::ISO8601DateTime, required: true
+      argument :end_time, GraphQL::Types::ISO8601DateTime, required: true
+      argument :all_day, Boolean, required: true
+    end
+
+    def schedule_duplicate(title:, start:, end_time:, all_day:)
+      Schedule.find_by(title: title, start: start, end: end_time, all_day: all_day).present? ? true : false
+    end
+
     private
 
     def expired_token?(token)
