@@ -23,4 +23,8 @@ class User < ApplicationRecord
   with_options if: :create_or_update_password do
     validates :password, format: { with: PASSWORD_FORMAT, message: I18n.t('errors.messages.password_invalid') }
   end
+
+  generates_token_for :password_reset, expires_in: 15.minutes do
+    password_salt&.last(10)
+  end
 end
