@@ -1,7 +1,6 @@
 zh-TW:
   messages:
-    please_resend_the_password_reset_email: '修改密碼效期已過，請重新申請'
-    invalid_token: 'Token不存在，請重新申請'
+    please_resend_the_password_reset_email: 'Token不存在，亦或是修改密碼效期已過，請重新申請'
     invalid_email_or_password: '信箱或密碼有誤'
     email_sending_failed: '信箱有誤'
   activerecord:
