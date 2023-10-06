@@ -17,8 +17,10 @@ class User < ApplicationRecord
   has_many :branch_school_relations
   has_many :branch_schools, through: :branch_school_relations
 
+  normalizes :email, with: -> email { email.strip.downcase }
+
   validates :email, :name, presence: true
-  validates :email, format: { with: /\A(.+)@(.+)\z/, message: I18n.t('errors.messages.email_invalid') }, uniqueness: { case_sensitive: false }, length: { minimum: 4, maximum: 254 }
+  validates :email, format: { with: /\A(.+)@(.+)\z/, message: I18n.t('errors.messages.email_invalid') }, uniqueness: true, length: { minimum: 4, maximum: 254 }
 
   with_options if: :create_or_update_password do
     validates :password, format: { with: PASSWORD_FORMAT, message: I18n.t('errors.messages.password_invalid') }

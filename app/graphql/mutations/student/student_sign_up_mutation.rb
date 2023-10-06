@@ -35,7 +35,7 @@ module Mutations
       end
 
       def find_branch_schools(names)
-        BranchSchool.where(name: names)
+        ::BranchSchool.where(name: names)
       end
     end
   end
