@@ -5,11 +5,9 @@ one:
   email: MyString
   password_digest: MyString
   jti: MyText
-  reset_jti: MyText
 
 two:
   name: MyString
   email: MyString
   password_digest: MyString
   jti: MyText
-  reset_jti: MyText

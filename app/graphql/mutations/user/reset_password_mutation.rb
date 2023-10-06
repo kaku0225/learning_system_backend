@@ -25,7 +25,6 @@ module Mutations
         user.assign_attributes(
           password: password,
           password_confirmation: password_confirmation,
-          reset_jti: nil
         )
 
         user.create_or_update_password = true
