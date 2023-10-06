@@ -11,5 +11,6 @@ module Types
     field :enabled, Boolean
     field :profile, Types::StudentProfileType, null: false
     field :todo_lists, [Types::TodoListType], null: true
+    field :branch_schools, [Types::BranchSchoolType]
   end
 end

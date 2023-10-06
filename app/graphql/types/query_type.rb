@@ -67,6 +67,12 @@ module Types
       AdministrationStaff.includes(:profile, :branch_schools)
     end
 
+    field :students, [Types::StudentType], null: false
+
+    def students
+      Student.includes(:profile, :branch_schools)
+    end
+
     field :schedules, [Types::ScheduleType], null: false
 
     def schedules
