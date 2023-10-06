@@ -8,7 +8,6 @@ module Types
 
     ## Student
     field :student_sign_up, mutation: ::Mutations::Student::StudentSignUpMutation
-    field :create_todo_list, mutation: ::Mutations::Student::CreateTodoListMutation
 
     ## ClassAdviser
     field :class_adviser_sign_up, mutation: ::Mutations::ClassAdviser::ClassAdviserSignUpMutation
@@ -29,5 +28,8 @@ module Types
     ## Schedule
     field :schedule_create_or_destroy, mutation: ::Mutations::Schedule::ScheduleCreateOrDestroyMutation
     field :schedule_update, mutation: ::Mutations::Schedule::ScheduleUpdateMutation
+
+    ## TodoList
+    field :todo_list_create, mutation: ::Mutations::TodoList::TodoListCreateMutation
   end
 end

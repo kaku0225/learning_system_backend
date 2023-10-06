@@ -1,6 +1,6 @@
 module Mutations
-  module Student
-    class CreateTodoListMutation < Mutations::BaseMutation
+  module TodoList
+    class TodoListCreateMutation < Mutations::BaseMutation
       argument :token, String, required: true
       argument :title, String, required: true
       argument :content, String, required: true
