@@ -8,6 +8,7 @@ module Types
 
     ## Student
     field :student_sign_up, mutation: ::Mutations::Student::StudentSignUpMutation
+    field :student_sign_up_by_class_adviser, mutation: ::Mutations::Student::StudentSignUpByClassAdviserMutation
 
     ## ClassAdviser
     field :class_adviser_sign_up, mutation: ::Mutations::ClassAdviser::ClassAdviserSignUpMutation
