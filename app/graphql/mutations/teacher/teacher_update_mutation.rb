@@ -31,8 +31,8 @@ module Mutations
         ::Teacher.transaction do
           teacher.assign_attributes(name: name, email: email)
           teacher.profile.assign_attributes(profile_attributes)
-          teacher.subjects = Subject.where(name: subjects)
-          teacher.branch_schools = BranchSchool.where(name: branch_schools)
+          teacher.subjects = ::Subject.where(name: subjects)
+          teacher.branch_schools = ::BranchSchool.where(name: branch_schools)
           teacher.save!
         end
       end
