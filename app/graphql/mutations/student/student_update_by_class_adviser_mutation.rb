@@ -14,7 +14,7 @@ module Mutations
       def resolve(params)
         student = ::Student.find(params[:id])
         update_student(student, params)
-        { success: true, students: ::Student.includes(:profile, :branch_schools) }
+        { success: true, students: ::Student.includes(:profile, :branch_schools).order(id: :desc) }
       rescue ActiveRecord::RecordNotFound => e
         { success: false, message: e.record.errors.full_messages.join('、 ') }
       rescue ActiveRecord::RecordInvalid => e

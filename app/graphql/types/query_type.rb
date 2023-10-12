@@ -70,7 +70,7 @@ module Types
     field :students, [Types::StudentType], null: false
 
     def students
-      Student.includes(:profile, :branch_schools)
+      Student.includes(:profile, :branch_schools).order(id: :desc)
     end
 
     field :schedules, [Types::ScheduleType], null: false

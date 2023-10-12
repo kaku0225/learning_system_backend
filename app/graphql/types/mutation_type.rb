@@ -10,6 +10,7 @@ module Types
     field :student_sign_up, mutation: ::Mutations::Student::StudentSignUpMutation
     field :student_sign_up_by_class_adviser, mutation: ::Mutations::Student::StudentSignUpByClassAdviserMutation
     field :student_update_by_class_adviser, mutation: ::Mutations::Student::StudentUpdateByClassAdviserMutation
+    field :switch_enabled, mutation: ::Mutations::Student::SwitchEnabledMutation
 
     ## ClassAdviser
     field :class_adviser_sign_up, mutation: ::Mutations::ClassAdviser::ClassAdviserSignUpMutation

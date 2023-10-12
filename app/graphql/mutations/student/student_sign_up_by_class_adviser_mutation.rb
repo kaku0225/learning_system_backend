@@ -17,7 +17,7 @@ module Mutations
           student = build_student(params, password)
           student.save!
           ContactMailer.temp_password(params[:email], password).deliver_later
-          { success: true, students: ::Student.includes(:profile, :branch_schools) }
+          { success: true, students: ::Student.includes(:profile, :branch_schools).order(id: :desc) }
         rescue ActiveRecord::RecordInvalid => e
           { success: false, message: e.record.errors.full_messages.join('、 ') }
         end
